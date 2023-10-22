@@ -17,15 +17,15 @@ public class Main {
 
     public static void main(String[] args) {
         //task1();
-        task2();
-        task3();
-        task4();
-        task5();
-        task6();
-        task7();
-        task8();
-        task9();
-        task10();
+        //task2();
+        //task3();
+        //task4();
+        //task5();
+        //task6();
+        //task7();
+        //task8();
+        //task9();
+        //task10();
         task11();
         task12();
         task13();
@@ -66,47 +66,75 @@ public class Main {
 
     public static void task3() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        animals.stream().
+                filter(animal -> animal.getAge() > 30 && animal.getOrigin().startsWith("A"))
+                .map(Animal::getOrigin)
+                .distinct()
+                .forEach(System.out::println);
     }
 
     public static void task4() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        System.out.println(animals.stream()
+                .filter(animal -> animal.getGender().equals("Female"))
+                .count()
+        );
     }
 
     public static void task5() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        System.out.println(animals.stream()
+                .filter(animal -> animal.getAge() >= 20 && animal.getAge() <= 30)
+                .anyMatch(animal -> animal.getOrigin().equals("Hungarian"))
+        );
     }
 
     public static void task6() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        System.out.println(animals.stream()
+                .allMatch(animal -> animal.getGender().equals("Male") || animal.getGender().equals("Female"))
+        );
     }
 
     public static void task7() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        System.out.println(animals.stream()
+                .noneMatch(animal -> animal.getOrigin().equals("Oceania"))
+        );
     }
 
     public static void task8() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        animals.stream()
+                .sorted(Comparator.comparing(Animal::getBread))
+                .limit(100)
+                .max(Comparator.comparing(Animal::getAge))
+                .ifPresent(animal -> System.out.println(animal.getAge()));
+
     }
 
     public static void task9() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        animals.stream()
+                .map(Animal::getBread)
+                .map(String::toCharArray)
+                .min(Comparator.comparing(chars -> chars.length))
+                .ifPresent(chars -> System.out.println(chars.length));
     }
 
     public static void task10() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        animals.stream()
+                .mapToInt(Animal::getAge)
+                .reduce(Integer::sum)
+                .ifPresent(System.out::println);
     }
 
     public static void task11() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        animals.stream()
+                .mapToInt(Animal::getAge)
+                .average().ifPresent(System.out::println);
     }
 
     public static void task12() {
