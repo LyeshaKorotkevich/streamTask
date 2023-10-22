@@ -9,12 +9,14 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
-        task1();
+        //task1();
         task2();
         task3();
         task4();
@@ -40,12 +42,26 @@ public class Main {
 
     public static void task1() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        animals.stream()
+                .filter(animal -> animal.getAge() >= 10 && animal.getAge() <= 20)
+                .sorted(Comparator.comparingInt(Animal::getAge))
+                .toList()
+                .subList(14, 21)
+                .forEach(System.out::println);
     }
 
     public static void task2() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Japanese"))
+                .peek(animal -> {
+                    if (animal.getGender().equals("Female")) {
+                        animal.setBread(animal.getBread().toUpperCase());
+                    }
+                })
+                .map(Animal::getBread)
+                .forEach(System.out::println);
+
     }
 
     public static void task3() {
