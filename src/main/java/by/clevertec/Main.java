@@ -9,8 +9,10 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -26,13 +28,13 @@ public class Main {
         //task8();
         //task9();
         //task10();
-        task11();
-        task12();
-        task13();
+        //task11();
+        //task12();
+        //task13();
         task14();
         task15();
-        task16();
-        task17();
+        //task16();
+        //task17();
         task18();
         task19();
         task20();
@@ -139,17 +141,47 @@ public class Main {
 
     public static void task12() {
         List<Person> persons = Util.getPersons();
-//        persons.stream() Продолжить ...
+        persons.stream()
+                .filter(person -> person.getGender().equals("Male")
+                        && person.getDateOfBirth().isAfter(LocalDate.now().minusYears(28))
+                        && person.getDateOfBirth().isBefore(LocalDate.now().minusYears(18))
+                )
+                .sorted(Comparator.comparing(Person::getRecruitmentGroup))
+                .limit(200)
+                .forEach(System.out::println);
+
     }
 
     public static void task13() {
         List<House> houses = Util.getHouses();
-//        houses.stream() Продолжить ...
+        houses.stream()
+                .flatMap(house -> house.getPersonList().stream()
+                        .map(person -> {
+                            int priority = 3;
+                            if (house.getBuildingType().equals("Hospital")) {
+                                priority = 1;
+                            } else if (person.getDateOfBirth().isAfter(LocalDate.now().minusYears(18))
+                                    || (person.getDateOfBirth().isBefore(LocalDate.now().minusYears(63))
+                                        && person.getGender().equals("Male"))
+                                    || (person.getDateOfBirth().isBefore(LocalDate.now().minusYears(58))
+                                        && person.getGender().equals("Female"))) {
+                                priority = 2;
+                            }
+                            return Map.entry(priority, person);
+                        }))
+                .sorted(Map.Entry.comparingByKey())
+                .limit(500)
+                .map(Map.Entry::getValue)
+                .forEach(System.out::println);
     }
 
     public static void task14() {
         List<Car> cars = Util.getCars();
-//        cars.stream() Продолжить ...
+//        cars.stream()
+//                .map(car -> {
+//
+//                })
+
     }
 
     public static void task15() {
@@ -159,12 +191,21 @@ public class Main {
 
     public static void task16() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        System.out.println(students.stream()
+                .filter(student -> student.getAge() < 18)
+                .sorted(Comparator.comparing(Student::getSurname))
+                .map(student -> student.getSurname() + " " + student.getAge())
+                .collect(Collectors.toList())
+        );
     }
 
     public static void task17() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        System.out.println(students.stream()
+                .map(Student::getGroup)
+                .distinct()
+                .collect(Collectors.toList())
+        );
     }
 
     public static void task18() {
