@@ -27,7 +27,7 @@ public class Main {
         //task11();
         //task12();
         //task13();
-        //task14();
+        task14();
         //task15();
         //task16();
         //task17();
@@ -35,7 +35,7 @@ public class Main {
         //task19();
         //task20();
         //task21();
-        task22();
+        //task22();
     }
 
     public static void task1() {
@@ -194,7 +194,7 @@ public class Main {
                         || car.getPrice() > 40000;
         Predicate<Car> contains59InVin = car -> car.getVin().contains("59");
 
-        System.out.println(
+        System.out.println("Total profit: " +
                 cars.stream()
                         .collect(Collectors.groupingBy(car -> {
                                     if (isJaguarOrWhite.test((Car) car)) return 1;
