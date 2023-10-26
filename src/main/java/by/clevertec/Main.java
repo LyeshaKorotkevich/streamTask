@@ -34,7 +34,7 @@ public class Main {
         //task18();
         //task19();
         //task20();
-        task21();
+        //task21();
         task22();
     }
 
@@ -309,11 +309,20 @@ public class Main {
 
     public static void task21() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        students.stream()
+                .collect(Collectors.groupingBy(Student::getGroup, Collectors.counting()))
+                .forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
     public static void task22() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        students.stream()
+                .collect(Collectors.groupingBy(Student::getFaculty,
+                        Collectors.collectingAndThen(
+                                Collectors.minBy(Comparator.comparingInt(Student::getAge)),
+                                studentOptional -> studentOptional.map(Student::getAge).orElse(0)
+                        ))
+                )
+                .forEach((key, value) -> System.out.println(key + ": " + value));
     }
 }
