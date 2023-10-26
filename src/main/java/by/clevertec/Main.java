@@ -27,10 +27,10 @@ public class Main {
         //task11();
         //task12();
         //task13();
-        task14();
+        //task14();
         //task15();
         //task16();
-        //task17();
+        System.out.println(task17());
         //task18();
         //task19();
         //task20();
@@ -251,13 +251,13 @@ public class Main {
         );
     }
 
-    public static void task17() {
+    public static List<String> task17() {
         List<Student> students = Util.getStudents();
-        System.out.println(students.stream()
+        return students.stream()
                 .map(Student::getGroup)
                 .distinct()
-                .collect(Collectors.toList())
-        );
+                .collect(Collectors.toList());
+
     }
 
     public static void task18() {
